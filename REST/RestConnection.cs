@@ -20,8 +20,12 @@ namespace SharpControls.APIHandler.REST
             _client.DefaultRequestHeaders.Add(key, value);
         }
 
-        public static void Init()
+        public static void Init(bool overwrite = true)
         {
+            if (!overwrite && _client != null)
+            {
+                return;
+            }
             _client = new HttpClient();
         }
 
