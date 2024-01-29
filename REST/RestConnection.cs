@@ -1,9 +1,8 @@
-﻿using APIHandler.Interfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 
-namespace APIHandler.REST
+namespace SharpControls.APIHandler.REST
 {
     public static class RestConnection
     {

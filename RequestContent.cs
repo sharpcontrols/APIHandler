@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace APIHandler
+namespace SharpControls.APIHandler
 {
     public class RequestContent
     {
