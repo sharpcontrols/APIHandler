@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIHandler", "APIHandler.csproj", "{361D668C-5D1E-44EE-B2B8-A072A4106DAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{361D668C-5D1E-44EE-B2B8-A072A4106DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361D668C-5D1E-44EE-B2B8-A072A4106DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361D668C-5D1E-44EE-B2B8-A072A4106DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361D668C-5D1E-44EE-B2B8-A072A4106DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CBEE6F2-752A-44E6-A391-462DA61AC0F5}
+	EndGlobalSection
+EndGlobal
