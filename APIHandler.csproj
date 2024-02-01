@@ -17,10 +17,12 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RootNamespace>SharpControls.APIHandler</RootNamespace>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
-    <Version>1.0.2</Version>
-    <PackageReleaseNotes>- Added overwrite param to Init() function so you can call init everytime, even if you dont want to regenerate the client.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.0.3</Version>
+    <PackageReleaseNotes>* Changed wrong named variable
+* Made RestConnection disposable
+* Added constructors to RestConnection class</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
