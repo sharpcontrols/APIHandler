@@ -9,7 +9,7 @@
     <Authors>daRedLoCo</Authors>
     <Company>Helvetitec Technologies Ltda</Company>
     <Product>SharpControls.APIHandler</Product>
-    <Description>Handles APIs</Description>
+    <Description>Handles API calls for REST.</Description>
     <Copyright>© Helvetitec Technologies Ltda 2024</Copyright>
     <PackageProjectUrl>https://github.com/sharpcontrols/APIHandler</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -17,12 +17,11 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RootNamespace>SharpControls.APIHandler</RootNamespace>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
-    <Version>1.0.3</Version>
-    <PackageReleaseNotes>* Changed wrong named variable
-* Made RestConnection disposable
-* Added constructors to RestConnection class</PackageReleaseNotes>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <Version>1.0.4</Version>
+    <PackageReleaseNotes>* Added Host as variable to RestConnection
+* Breaking Change: RestConnection(string userAgentName, string userAgentVersion, string host = "", params KeyValuePair&lt;string,string&gt;[] headers) has host in place of headers. Just add host before headers</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

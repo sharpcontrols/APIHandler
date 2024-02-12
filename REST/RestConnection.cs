@@ -10,13 +10,21 @@ namespace SharpControls.APIHandler.REST
         private bool disposedValue;
 
         private HttpClient Client { get; set; } = new();
+        public string Host { get { return _host; } set { _host = value.EndsWith("/") || value == "" ? value : value + "/";  } }
+        private string _host;
 
-        public RestConnection() { 
-        
+        private string CombinedUrl(string url)
+        {
+            return Host + url;
         }
 
-        public RestConnection(HttpRequestHeaders headers)
+        public RestConnection(string host = "") {
+            _host = host;
+        }
+
+        public RestConnection(HttpRequestHeaders headers, string host = "")
         {
+            _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach(var header in headers)
             {
@@ -24,8 +32,9 @@ namespace SharpControls.APIHandler.REST
             }
         }
 
-        public RestConnection(Dictionary<string, string> headers)
+        public RestConnection(Dictionary<string, string> headers, string host = "")
         {
+            _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach(var header in headers)
             {
@@ -33,20 +42,23 @@ namespace SharpControls.APIHandler.REST
             }
         }
 
-        public RestConnection(ProductInfoHeaderValue userAgent)
+        public RestConnection(ProductInfoHeaderValue userAgent, string host = "")
         {
+            _host = host;
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.UserAgent.Add(userAgent);
         }
 
-        public RestConnection(string userAgentName, string userAgentVersion)
+        public RestConnection(string userAgentName, string userAgentVersion, string host = "")
         {
+            _host = host;
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.UserAgent.Add(new(userAgentName, userAgentVersion));
         }
 
-        public RestConnection(HttpRequestHeaders headers, ProductInfoHeaderValue userAgent)
+        public RestConnection(HttpRequestHeaders headers, ProductInfoHeaderValue userAgent, string host = "")
         {
+            _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach (var header in headers)
             {
@@ -55,8 +67,9 @@ namespace SharpControls.APIHandler.REST
             Client.DefaultRequestHeaders.UserAgent.Add(userAgent);
         }
 
-        public RestConnection(string userAgentName, string userAgentVersion, Dictionary<string, string> headers)
+        public RestConnection(string userAgentName, string userAgentVersion, Dictionary<string, string> headers, string host = "")
         {
+            _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach (var header in headers)
             {
@@ -65,8 +78,9 @@ namespace SharpControls.APIHandler.REST
             Client.DefaultRequestHeaders.UserAgent.Add(new(userAgentName, userAgentVersion));
         }
 
-        public RestConnection(string userAgentName, string userAgentVersion, params KeyValuePair<string,string>[] headers)
+        public RestConnection(string userAgentName, string userAgentVersion, string host = "", params KeyValuePair<string,string>[] headers)
         {
+            _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach (var header in headers)
             {
@@ -97,8 +111,10 @@ namespace SharpControls.APIHandler.REST
 
         public async Task<JObject> SendRequest(HttpMethod method, string uri, RequestContent content)
         {
-            HttpRequestMessage msg = new(method, uri);
-            msg.Content = new StringContent(content.ToString());
+            HttpRequestMessage msg = new(method, CombinedUrl(uri))
+            {
+                Content = new StringContent(content.ToString())
+            };
             var response = await Client.SendAsync(msg);
             if (!response.IsSuccessStatusCode)
             {
@@ -110,7 +126,7 @@ namespace SharpControls.APIHandler.REST
 
         public async Task<JObject> SendGet(string uri)
         {
-            HttpRequestMessage msg = new(HttpMethod.Get, uri);
+            HttpRequestMessage msg = new(HttpMethod.Get, CombinedUrl(uri));
             var response = await Client.SendAsync(msg);
             if (!response.IsSuccessStatusCode)
             {
@@ -122,7 +138,7 @@ namespace SharpControls.APIHandler.REST
 
         public async Task<JObject> SendPost(string uri, RequestContent content)
         {
-            HttpRequestMessage msg = new(HttpMethod.Post, uri);
+            HttpRequestMessage msg = new(HttpMethod.Post, CombinedUrl(uri));
             msg.Content = new StringContent(content.ToString());
             var response = await Client.SendAsync(msg);
             if (!response.IsSuccessStatusCode)
@@ -135,7 +151,7 @@ namespace SharpControls.APIHandler.REST
 
         public async Task<JObject> SendPut(string uri, RequestContent content)
         {
-            HttpRequestMessage msg = new(HttpMethod.Put, uri);
+            HttpRequestMessage msg = new(HttpMethod.Put, CombinedUrl(uri));
             msg.Content = new StringContent(content.ToString());
             var response = await Client.SendAsync(msg);
             if (!response.IsSuccessStatusCode)
@@ -148,7 +164,7 @@ namespace SharpControls.APIHandler.REST
 
         public async Task<JObject> SendDelete(string uri, RequestContent content)
         {
-            HttpRequestMessage msg = new(HttpMethod.Delete, uri);
+            HttpRequestMessage msg = new(HttpMethod.Delete, CombinedUrl(uri));
             msg.Content = new StringContent(content.ToString());
             var response = await Client.SendAsync(msg);
             if (!response.IsSuccessStatusCode)
