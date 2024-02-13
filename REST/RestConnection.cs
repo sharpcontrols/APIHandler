@@ -9,6 +9,9 @@ namespace SharpControls.APIHandler.REST
     {
         private bool disposedValue;
 
+        private static string? _appToken;
+        private static string _appTokenField = "app_token";
+
         private HttpClient Client { get; set; } = new();
         public string Host { get { return _host; } set { _host = value.EndsWith("/") || value == "" ? value : value + "/";  } }
         private string _host;
@@ -19,11 +22,13 @@ namespace SharpControls.APIHandler.REST
         }
 
         public RestConnection(string host = "") {
+            CheckAppToken();
             _host = host;
         }
 
         public RestConnection(HttpRequestHeaders headers, string host = "")
         {
+            CheckAppToken();
             _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach(var header in headers)
@@ -34,6 +39,7 @@ namespace SharpControls.APIHandler.REST
 
         public RestConnection(Dictionary<string, string> headers, string host = "")
         {
+            CheckAppToken();
             _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach(var header in headers)
@@ -44,6 +50,7 @@ namespace SharpControls.APIHandler.REST
 
         public RestConnection(ProductInfoHeaderValue userAgent, string host = "")
         {
+            CheckAppToken();
             _host = host;
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.UserAgent.Add(userAgent);
@@ -51,6 +58,7 @@ namespace SharpControls.APIHandler.REST
 
         public RestConnection(string userAgentName, string userAgentVersion, string host = "")
         {
+            CheckAppToken();
             _host = host;
             Client.DefaultRequestHeaders.Clear();
             Client.DefaultRequestHeaders.UserAgent.Add(new(userAgentName, userAgentVersion));
@@ -58,6 +66,7 @@ namespace SharpControls.APIHandler.REST
 
         public RestConnection(HttpRequestHeaders headers, ProductInfoHeaderValue userAgent, string host = "")
         {
+            CheckAppToken();
             _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach (var header in headers)
@@ -69,6 +78,7 @@ namespace SharpControls.APIHandler.REST
 
         public RestConnection(string userAgentName, string userAgentVersion, Dictionary<string, string> headers, string host = "")
         {
+            CheckAppToken();
             _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach (var header in headers)
@@ -80,6 +90,7 @@ namespace SharpControls.APIHandler.REST
 
         public RestConnection(string userAgentName, string userAgentVersion, string host = "", params KeyValuePair<string,string>[] headers)
         {
+            CheckAppToken();
             _host = host;
             Client.DefaultRequestHeaders.Clear();
             foreach (var header in headers)
@@ -87,6 +98,20 @@ namespace SharpControls.APIHandler.REST
                 Client.DefaultRequestHeaders.Add(header.Key, header.Value);
             }
             Client.DefaultRequestHeaders.UserAgent.Add(new(userAgentName, userAgentVersion));
+        }
+
+        private void CheckAppToken()
+        {
+            if (_appToken == null)
+            {
+                throw new Exception("Application Token needs to be set at SharpControls.APIHandler.REST.SetAppToken(\"NEW_TOKEN\")");
+            }
+            Client.DefaultRequestHeaders.Add(_appTokenField, _appToken); //Sets the app token
+        }
+
+        public static void SetAppToken(string token)
+        {
+            _appToken = token;
         }
 
         public void SetUserAgent(string name, string version = "1.0")

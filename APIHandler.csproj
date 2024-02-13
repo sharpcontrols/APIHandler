@@ -17,11 +17,8 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RootNamespace>SharpControls.APIHandler</RootNamespace>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
-    <Version>1.0.4</Version>
-    <PackageReleaseNotes>* Added Host as variable to RestConnection
-* Breaking Change: RestConnection(string userAgentName, string userAgentVersion, string host = "", params KeyValuePair&lt;string,string&gt;[] headers) has host in place of headers. Just add host before headers</PackageReleaseNotes>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>* Breaking Change: Added static app token variable. This needs to be set with SetAppToken("new_token") once.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
